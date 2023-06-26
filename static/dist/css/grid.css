@@ -1,0 +1,23 @@
+
+
+
+#student_info{
+    border:1px solid black;
+}
+
+/* #lefttobody {
+    width: 100% ;
+    height: 50px ;
+    border: 2px solid black;
+} */
+
+/* #righttobody {
+    width: 100% !important;
+    height: 390px !important;
+
+} */
+
+#totalCredits {
+    display: inline;
+    font-size: 0.8em
+}

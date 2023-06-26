@@ -1,0 +1,357 @@
+{% extends 'staff_template/base_template.html' %}
+
+{% block page_title %}
+    Add Subject
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+<style>
+     #student_info1{
+        width:350px;
+        max-height: 420px;
+        align-content:center;
+        display: block;
+        overflow:auto;
+        overflow-x: hidden;
+    }
+    #student_info2{
+        width:300px;
+        max-height: 420px;
+        align-content:center;
+        display: block;
+        overflow:auto;
+        overflow-x: hidden;
+    }
+    table{
+        border-spacing: 0;
+        max-height: 420px;
+    }
+      /* 스크롤바 설정 */
+      .scrolltable::-webkit-scrollbar {
+    width: 10px;
+    }
+    .scrolltable::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    }
+    .scrolltable::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+    }
+    
+
+</style>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Add Subject</h3>
+                    </div>
+                    
+
+                    <div class="card-footer">
+                        <div class="form-group">
+                            <table class="g-co-12">
+                                <label>과목 </label>
+                                <select class="form-control" name="subject" id="subject">
+                                    {% for subject in subjects %}
+                                        <option value="{{ subject.id }}">{{ subject.subject_num }} {{ subject.subject_name }}</option>
+                                    {% endfor %}
+                                </select>
+                              </table>
+                            </div>
+                        </div>
+                   
+
+                   
+                
+                
+                    
+                    
+                <div class="grid text-center" style="display:flex">
+                    <!-- 왼쪽 -->
+
+                    <div class="g-col-5" style="float:left; ">
+                      <div style="float:left width:500px; margin-left:100px; margin-top:10px">
+                        <input type="text" id="searchinput" name="searchinput" size ="14" placeholder="검색" style="width:280px" >
+                        <button type="submit" class="btn btn-primary"id="btn1">검색</button>
+                    </div>
+                        <div style="border:1px solid black; width:330px; margin-left: 100px; max-height: 420px; height: 420px;">
+                          <table class="scrolltable" id="student_info1" border="1" bordercolor="blue" align="center" name="student_info1" style="width:330px">
+                            <thead >
+                            <th><input type="checkbox" id="stud_ch_all"name ="stud_ch_all">All</th>
+                            <th class="td1"style = "width:100px">학과</th>
+                            <th class="td2"style = "width:90px">학번</th> 
+                            <th class="td2"style = "width:100px">이름</th>
+                            </thead>
+                                
+                                {%for student_infos in student_info%}
+                                    
+                            <tbody id="lefttobody" style="border:1px solid black"> 
+                              <tr height = "20">
+                                <td><input class="stud_ch" type="checkbox" name ="stud_ch" ></td>  
+                                <td class="search" >{{student_info_co.course}}</td>
+                                <td class="search" >{{student_infos.first_name}}</td>
+                                <td class="search" >{{student_infos.last_name}}</td>  
+                              </tr>
+                                {%endfor%} 
+                            </tbody>
+                            <!-- <tr align="center" bgcolor="#28a745"  height="50"  >
+                                
+                            </tr> -->
+                          </table>
+                        </div>
+                    </div>
+                        
+                        
+
+                    <!-- 가운데 -->
+                      <div class="g-col-2"> 
+                        <div style="width: 60px; height: 180px;">
+                          <button type="submit" id="stu_btn" name="stu_btn" style="margin-top:180px; margin-left: 30px;">
+                            <img src="{% static 'dist/img/but.png' %}"style="width: 40px;height: 40px;">
+                          </button>
+                        </div>
+                      </div>
+
+                    <!-- 오른쪽 -->
+                    <div class="g-col-5" style="float:right; max-height: 480px;">
+                      <div>
+                        <div style="border:1px solid black; width:300px; margin-left: 100px; max-height: 420px; height: 420px;">
+                          <table class="scrolltable" id="student_info2" border="1" bordercolor="blue" align="center" name="student_info2" >
+                            <thead>
+                            <th><input type="checkbox" id="stud_ch_all1"name ="stud_ch_all1"></th>
+                            <th class="td1"style = "width:100px">학과</th>
+                            <th class="td2"style = "width:90px">학번</th> 
+                            <th class="td2"style = "width:100px">이름</th>
+                            </thead>
+                            <tbody id="righttobody" style="border:1px solid black; height: 40px;">
+
+
+                            </tbody>
+                            <!-- <tr align="center" bgcolor="#28a745"  height="50"  >
+                                
+                            </tr> -->
+                            
+                          </table>
+                        </div>
+                        
+                          <button type="submit" class="btn btn-primary"id="stu_btn1" style="float:left; margin-left: 100px;" >삭제</button>
+                            <button type="submit" class="btn btn-primary" id="saveco" name="saveco" style="float:right; margin-left: 150px;" >save</button>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </div>
+</section>
+
+{% endblock main_content %}
+{% block custom_js %}
+  <script>
+    $(document).ready(function(){
+        var leftTable = $("#student_info tr");
+        // console.log("Dsadas");
+        $("#stu_btn").click(function(){
+    moveTableItem('stud_ch', 'righttobody' );
+  });
+  $("#stu_btn1").click(function(){
+    moveTableItem1('stud_ch1', 'leftttobody' );
+  });
+  ////옆테이블로 이동
+  function moveTableItem(chkBoxClsNm1, moveTableNm ) {
+   
+   var tableNm;
+   var rowData = new Array();
+     var tdArr = new Array();
+    
+     var checkbox = $('input[class='+chkBoxClsNm1+']:checked' );
+      
+     // 체크된 체크박스 값을 가져온다
+     var arr = new Array();
+     var obj = null;
+      
+     checkbox.each(function(i) {
+     obj = new Object();
+      
+       // checkbox.parent() : checkbox의 부모는 <td>이다.
+       // checkbox.parent().parent() : <td>의 부모는 <tr>
+       // checkbox.parent().parent().parent() : <tr>의 부모는 테이블
+       var tr = checkbox.parent().parent().eq(i);
+       var td = tr.children();
+        
+       // 체크된 row의 모든 값을 배열에 담는다.
+       rowData.push(tr.text());
+        
+       // td.eq(0)은 체크박스 이므로  td.eq(1)의 값부터 가져온다.
+       var input1 = td.eq(1).text();
+       var input2 = td.eq(2).text();
+       var input3 = td.eq(3).text();
+        
+       // 가져온 값을 배열에 담는다.
+       tdArr.push(input1);
+       tdArr.push(input2);
+       tdArr.push(input3);
+    
+     var row = "<tr>"
+     row += '<td>' + '<input type="checkbox" class="stud_ch1"/>' + '</td>';
+     row += '<td>' + input1 + '</td>';
+     row += '<td>' + input2 + '</td>';
+     row += '<td>' + input3 + '</td>';
+     row += '</tr>';
+      
+     tableNm = '#' + moveTableNm;
+     $(tableNm).append(row);
+     //$( checkbox.parent().parent().remove() );
+     $("input:checkbox[name='stud_ch']").prop("checked", false);
+    //  obj.shopNo  = input2;
+    //  obj.shopName = input3;
+    //  arr.push(obj);
+     });
+      
+    //  var obj2 = new Object();
+    //  obj2.shopUseCloseList = arr;
+    //  alert( JSON.stringify(obj2) );
+    //  chkCnt();
+   }
+    ///삭제
+   function moveTableItem1(chkBoxClsNm1, moveTableNm ) {
+   var tableNm;
+   var rowData = new Array();
+     var tdArr = new Array();
+    
+     var checkbox = $('input[class='+chkBoxClsNm1+']:checked' );
+      
+     // 체크된 체크박스 값을 가져온다
+     var arr = new Array();
+     var obj = null;
+      
+     checkbox.each(function(i) {
+     obj = new Object();
+      
+       // checkbox.parent() : checkbox의 부모는 <td>이다.
+       // checkbox.parent().parent() : <td>의 부모는 <tr>
+       // checkbox.parent().parent().parent() : <tr>의 부모는 테이블
+       var tr = checkbox.parent().parent().eq(i);
+       var td = tr.children();
+
+     $( checkbox.parent().parent().remove() );
+
+     });
+      
+   }
+   ///전체선택
+   $("#stud_ch_all").click(function(){
+    if( $("#stud_ch_all").is(":checked") ) {
+      $(".stud_ch").prop("checked", true);
+    } else {
+      $(".stud_ch").prop("checked", false);
+    }
+  });
+  ///
+  $("#stud_ch_all1").click(function(){
+    if( $("#stud_ch_all1").is(":checked") ) {
+      $(".stud_ch1").prop("checked", true);
+    } else {
+      $(".stud_ch1").prop("checked", false);
+    }
+  });
+  ///검색
+  $("#searchinput").keyup(function(){
+    var currentVal = $.trim($(this).val());
+    $("#student_info1 >tbody> tr").hide();
+    var temp = $('#student_info1>tbody > tr>td.search:contains("'+currentVal+'")');
+    $(temp).parent().show();
+    
+  })
+  function tableToJson(table) { // 변환 함수
+    var data = [];
+
+    var headers = [];
+    for(var i=0; i<table.rows[0].cells.length; i++) {
+        headers[i] = table.rows[0].cells[i].innerHTML.toLowerCase().replace(/ /gi,'');
+    }
+
+    for(var i=1; i<table.rows.length; i++) {
+        var tableRow = table.rows[i];
+        var rowData = {};
+
+        for(var j=0; j<tableRow.cells.length; j++) {
+            rowData[headers[j]] = tableRow.cells[j].innerHTML;
+        }
+        data.push(rowData);
+    }
+
+    return data;
+}
+$("#saveco").click(function(){
+        var jsonObj = tableToJson(document.getElementById("student_info2")); // table id를 던지고 함수를 실행한다.
+        var subject_id=$("#subject").val();
+        jsonObj= JSON.stringify(jsonObj); // JSON 객체가 리턴된다!
+       
+        
+
+        $.ajax({
+                    url:'{% url 'save_subjecttostudent_data' %}',
+                    type:'POST',
+                    data:{student_dataes:jsonObj,subject_id :subject_id  },
+                })
+                .done(function(response){
+                    
+                    if(response=="OK")
+                    {
+                        alert("Attendance Saved!")
+                    }
+                    else
+                    {
+                        alert("Failed to Save Attendance!")
+                    }
+                    location.reload()
+                    
+                    //console.log(response)
+                })
+
+                .fail(function(){
+                    alert("Error in Saving Students Attendance Data.")
+                })
+  });
+       
+
+
+
+         });
+
+           
+  
+ 
+    
+
+    
+  </script>
+
+
+{% endblock custom_js %}
+
+
+
+        
+<!— // var jsonObj = tableToJson(document.getElementById("student_info")); // table id를 던지고 함수를 실행한다.
+// console.log(jsonObj);
+
+// stud_data= alert(JSON.stringify(jsonObj)); // JSON 객체가 리턴된다!
+// for(key in stud_data)
+// {
+//     if(stud_data[key].is("checked"))
+//     {
+        
+//     }
+// } —>

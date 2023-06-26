@@ -1,0 +1,241 @@
+{% extends 'staff_template/base_template.html' %}
+
+{% block page_title %}
+확인(staff_check)
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <hr>
+                <!--<h1>얼굴인식</h1>-->
+                <table class="table-sm">
+                    <tr>
+                        <td width="50%">
+                            <img src="http://127.0.0.1:8000/facecam_feed1/" />
+                        </td>
+
+                        <td width="50%">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="col-lg-6">
+                <style>
+                    #student_info1 {
+                        width: 350px;
+                        max-height: 420px;
+                        align-content: center;
+                        display: block;
+                        overflow: auto;
+                        overflow-x: hidden;
+                    }
+
+                    #student_info2 {
+                        width: 300px;
+                        max-height: 420px;
+                        align-content: center;
+                        display: block;
+                        overflow: auto;
+                        overflow-x: hidden;
+                    }
+
+                    table {
+                        border-spacing: 0;
+                        max-height: 420px;
+                    }
+
+                    /* 스크롤바 설정 */
+                    .scrolltable::-webkit-scrollbar {
+                        width: 10px;
+                    }
+
+                    .scrolltable::-webkit-scrollbar-thumb {
+                        background-color: #2f3542;
+                        border-radius: 10px;
+                        background-clip: padding-box;
+                        border: 2px solid transparent;
+                    }
+
+                    .scrolltable::-webkit-scrollbar-track {
+                        background-color: grey;
+                        border-radius: 10px;
+                        box-shadow: inset 0px 0px 5px white;
+                    }
+                </style>
+                <section class="content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <hr>
+                                <!-- general form elements -->
+                                <div class="card card-primary">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Add Subject</h3>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="card-footer">
+                                            <div class="form-group">
+                                                <table style="width: 500px;">
+                                                    <label>과목 </label>
+                                                    <p id="subject_name">
+                                                        <input type="text" id="sub" name="sub"value="">
+                                                    </p>
+                                                   
+                                                </table>
+                        
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="gridBox" style="display:flex">
+                                        <div style="float:right; width: 45%;">
+                                            <div
+                                                style="border:1px solid black; width:330px; margin-left: 100px; max-height: 420px; height: 420px;">
+                                                <table class="scrolltable" id="student_info1" border="1"
+                                                    bordercolor="blue" align="center" name="student_info1"
+                                                    style="width:330px">
+                                                    <thead>
+                                                        <th><input type="checkbox" id="stud_ch_all"
+                                                                name="stud_ch_all"></th>
+                                                        <th class="td1" style="width:100px">학과</th>
+                                                        <th class="td2" style="width:90px">학번</th>
+                                                        <th class="td2" style="width:100px">이름</th>
+                                                    </thead>
+
+                                                
+
+                                                    <tbody name="" id="lefttobody" style="border:1px solid black">
+                                                       
+                                                       
+                                                    </tbody>
+                                                    
+                                                    <!-- <tr align="center" bgcolor="#28a745"  height="50"  >
+                                       
+                                   </tr> -->
+                                                </table>
+
+                                           
+                                            </div>
+                                            
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+</section>
+
+{% endblock main_content %}
+{% block custom_js %}
+<script>
+
+    $(document).ready(function () {
+        // $("#button").click(function () {
+            setInterval(function() {
+            // Displaying Students Based on Staff, Course and Session Enrolle
+            
+
+            $.ajax({
+                url: '{% url 'get_subjects' %}',
+                type: 'POST',
+               
+
+            }).done(function (response) {
+                var json_data = JSON.parse(response);
+                subje = json_data[0]['subject_name'];
+                
+                
+
+                
+                $('input[name=sub]').attr('value',subje);
+                
+                $("#subject_name").text(subje);
+            })
+                // .fail(function () {
+                //     alert("Error in Fetching Students.")
+                // })
+             },2000);
+
+                setInterval(function() {
+            // Displaying Students Based on Staff, Course and Session Enrolle
+            var subject_date=$("#subject_name").val();
+
+
+            $.ajax({
+                
+                url: '{% url 'get_student_check' %}',
+                type: 'POST',
+                data:{subject_data:subje},
+
+
+            })
+            
+            .done(function (response) {
+                var json_data = JSON.parse(response);
+                var html = '';
+                 
+                for(key in json_data){
+					 //기존 테이블데이터 삭제
+					html += '<tr>';
+                    html += '<td>'+json_data[key]['status']+'</td>';
+					html += '<td>'+json_data[key]['id']+'</td>';
+					html += '<td>'+json_data[key]['name']+'</td>';
+                    html += '<td>'+json_data[key]['name1']+'</td>';
+					html += '</tr>';
+				}
+                $("#lefttobody").empty();
+				$("#student_info1").append(html); 
+               
+                
+            
+            })
+                  
+
+
+            // $("#subject_sel1").on("change", function () {
+
+            //     s1 = $(this).val();
+
+            //     sub_data = JSON.stringify(s1)
+
+            //     $.ajax({
+            //         url: '{% url 'save_subject_for_check' %}',
+            //         type: 'POST',
+            //         data: { subject: sub_data },
+            //     })
+            //         .done(function (response) {
+
+            //             if (response == "OK") {
+            //                 alert("Attendance Saved!")
+            //             }
+            //             else {
+            //                 alert("Failed to Save Attendance!")
+            //             }
+            //             location.reload()
+
+            //             //console.log(response)
+            //         })
+
+            //         .fail(function () {
+            //             alert("Error in Saving Students Attendance Data.")
+            //         })
+            //     alert("성공")
+            // });//// 과목 넘기기
+             
+        },2000);});
+</script>
+
+
+
+{% endblock custom_js %}

@@ -1,0 +1,73 @@
+{% extends 'hod_template/base_template.html' %}
+
+{% block page_title %}
+    확인(hod_check)
+{% endblock page_title %}
+
+{% block main_content %}
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <hr>
+        <!--<h1>얼굴인식</h1>-->
+        <table class ="table-sm">
+            <tr>
+                <td width="50%">
+                <img src="http://127.0.0.1:8000/detectme/" style="width:700px;" />
+                </td>
+                
+                <td width="50%">
+                </td>
+                </tr>
+        </table>
+    </div>
+
+	<div class="col-lg-6">
+
+		<!--<h5>CUSTOMERS:</h5>-->
+		<hr>
+        
+		<div class="card card-body">
+			<!--<a class="btn btn-primary  btn-sm btn-block" href="">Create Customer</a>-->
+			
+            
+            <table class="table table-sm">
+              <div class="form-group">
+                    <label>과목</label>
+                    <select class="form-control" name="subject" id="subject">
+                        {% for subject in subjects %}
+                            <option value="{{ subject.id }}">{{subject.subject_name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+				<tr>
+					<th></th>
+					<th>이름</th>
+					<th>학번</th>
+                    <th>출석</th>
+				</tr>
+
+				{% for Attendance in Attendance %}
+					<tr>
+						<td><a class="btn btn-sm btn-info" href="{% url 'Attendance' Attendance.id %}">View</a></td>
+						<td>{{Attendance.name}}</td>
+						<td>{{Attendance.user}}</td>
+					</tr>
+				{% endfor %}
+
+			</table></div>
+		</div>
+	</div>
+
+    
+    
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+{% endblock %}
+
+

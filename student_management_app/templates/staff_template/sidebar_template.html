@@ -1,0 +1,104 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background:#333;">
+      <!-- Brand Logo -->
+      <a href="{% url 'staff_home' %}" class="brand-link" style="background:#fff;">
+        <img src="{% static 'dist/img/na.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
+        <span class="brand-text font-weight-light" style="color:black;">Open University</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+            
+            <li class="nav-item">
+              {% url 'staff_home' as staff_home %}
+              <a href="{{ staff_home }}" class="nav-link {% if request.path == staff_home %} active {% endif %}">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAVxJREFUSEvt1t1RwzAQBODdCoAKoARKgAqACiAVQAdAB6QCQgWkAyiBEpIOQgXHHCMbWZZs3RlPXqJHT6RPp5+NiD017smFGxaROwBC8s0zeRcsIisAtwFckVxYcTOcoI1nxk1wgn4H9chTeTWcQS8C+AnAjFfBOZTkl8Iicg7AjI/CQ2izwR58EK5BvXgRtqAePAt7UCveg6egFrwDZ8LhmeSTNZXCadd+j1HfTsi0cMje1wT5T1iHXpDUuP37kxCRawDvM8M3JNcdOAqDYwAfYQKdikXkAcBVYenXJJfRPsdLfQlg14ROD446SQqLyAuA+5H9XpLUyWmitTDJ3iEuXacc3HzbAtgkEzgDcBqqOpkL7h24XHVzVHyAswfpsNTpNSxdp130nPFEddxnS1KvW6eVYH0zp7ntnUCbz/EAQw8BfUtpfk9pGqO/b7OqiqdItX1HH3u1A1l/9wODmCUuf7HoQQAAAABJRU5ErkJggg=="/>
+                <p>
+                  메인페이지
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+
+            <li class="nav-item">
+              {% url 'staff_check' as staff_check %}
+              <a href="{{ staff_check }}" class="nav-link {% if request.path == staff_check %} active {% endif %}">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAYFJREFUSEvtlt1RAkEQhLsj0AzUCDQDIQIxA81AIxAjUDMgAzECMQI1AgkBIxirqeFqWfeHO1B4YKru6Xbm2+6dnTtiS8EtcbEH/5vzu2u1md0AOHIrpiSfNmFLVrGZHQN4BnAWgT4AXJKcrrOBEngC4DxTfEKyv3GwmUnle6XwyTqqk4rNrAfgtQLuk5QrxTCzQwADkqNw4Z+CHSoBcvA6hJfOeAbgICPnm6SUZCOCat0nyaZRS+CBd3WquLp6nKOmoAB6JCVmHsUB4mc9DLr7DcAwPltvxgddM6+7sHeuNIZWwbXG0XuHCiTrdccVC0uT0CLYzGT1BQANkjA0OMYkXxwsoLr7NFqXhSbBhYkVG9BMMD/TEF6E/gJ7gS+3bRWn1SwaJLMArrylRkoVWmouMyuNydxGmvHpcITdm0tqwG6x1HaJ1uMzBOvzpyvRJW5JPrZJDMG6r3dtkoO19ySVv3KE4CsAerrEKP4I1Irs7q9Pbedd3+8Vd3Wudd7WrP4BBZGRHxfp058AAAAASUVORK5CYII="/>
+                <p>
+                출석체크
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'staff_take_attendance' as staff_take_attendance %}
+              <a href="{{ staff_take_attendance }}" class="nav-link {% if request.path == staff_take_attendance %} active {% endif %}">
+                <i class="nav-icon fas fa-calendar-plus"></i>
+                <p>
+                  출석등록
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'staff_update_attendance' as staff_update_attendance %}
+              <a href="{{ staff_update_attendance }}" class="nav-link {% if request.path == staff_update_attendance %} active {% endif %}">
+                <i class="nav-icon fas fa-calendar-alt"></i>
+                <p>
+                  출석확인
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+
+
+            <li class="nav-item">
+              {% url 'staff_add_subject' as staff_add_subject %}
+              <a href="{{ staff_add_subject }}" class="nav-link {% if request.path == staff_add_subject %} active {% endif %}">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAS1JREFUSEvtlutRAkEQhLsjwAyQCDQDIQNDkEwwEzKwjEDIgBAgAjWCpoba02G5pZatUfhx+/Me/c3Mzou40uGVuCiCJT0DeAgwbEPyPdc5AUt6BPAG4D4A2kksSc69Xh94E+RpbveE5LZ7eASWdAfgM9BTLzUjuSqBpwA+bhm8A7BMBr4AGFcYG+LxmqRFB5IsfE8DuCcCzaGeObEvklZ2Fmqre6uG7pSSsw1Msqq9SlLhvtvAAA7JlM535vHIvfup1cyAZrDXGbL63+rYmr3vXDWTLOSOKxrVyScD+Dckkm5iLPrR13Kn+T+2/hQ3EO/xUTJEkL3GudVnQfI1Gti7+qRp81fLXrmcEtiagTX6mnXmkoCcB3dKaaG3WRt1yskVRajRqRruNUKXfrMHf5i2HyTw6+QAAAAASUVORK5CYII="/>
+                <p>
+                  과목추가
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'add_subjecttostudent' as add_subjecttostudent %}
+              <a href="{{ add_subjecttostudent }}" class="nav-link {% if request.path == add_subjecttostudent %} active {% endif %}">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAS1JREFUSEvtlutRAkEQhLsjwAyQCDQDIQNDkEwwEzKwjEDIgBAgAjWCpoba02G5pZatUfhx+/Me/c3Mzou40uGVuCiCJT0DeAgwbEPyPdc5AUt6BPAG4D4A2kksSc69Xh94E+RpbveE5LZ7eASWdAfgM9BTLzUjuSqBpwA+bhm8A7BMBr4AGFcYG+LxmqRFB5IsfE8DuCcCzaGeObEvklZ2Fmqre6uG7pSSsw1Msqq9SlLhvtvAAA7JlM535vHIvfup1cyAZrDXGbL63+rYmr3vXDWTLOSOKxrVyScD+Dckkm5iLPrR13Kn+T+2/hQ3EO/xUTJEkL3GudVnQfI1Gti7+qRp81fLXrmcEtiagTX6mnXmkoCcB3dKaaG3WRt1yskVRajRqRruNUKXfrMHf5i2HyTw6+QAAAAASUVORK5CYII="/>
+                <p>
+                   학생등록
+                </p>
+              </a>
+            </li>
+            
+            <li class="nav-item">
+              {% url 'staff_feedback' as staff_feedback %}
+              <a href="{{ staff_feedback }}" class="nav-link {% if request.path == staff_feedback %} active {% endif %}">
+                <i class="nav-icon fas fa-comments"></i>
+                <p>
+                  메세지
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>

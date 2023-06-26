@@ -1,0 +1,170 @@
+{% extends 'hod_template/base_template.html' %}
+
+{% block page_title %}
+    과목 추가(add_subject)
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">과목 추가</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form role="form" method="POST" action="{% url 'add_subject_save' %}">
+                        {% csrf_token %}
+
+                        
+                                {% comment %} Display Messages {% endcomment %}
+                                {% if messages %}
+                                <div class="form-group">
+                                <div class="col-12">
+                                    {% for message in messages %}
+                                    {% if message.tags == "error" %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                    {% elif message.tags == "success" %}
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                                        {{ message }}
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                </div>
+                                {% endif %}
+                            
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>과목 이름 </label>
+                                <input type="text" class="form-control" name="subject" placeholder="Enter Subject">
+                            </div>
+
+                            <div class="form-group">
+                                <label>학과 </label>
+                                <select class="form-control" name="course">
+                                    {% for course in courses %}
+                                        <option value="{{ course.id }}">{{ course.course_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                         
+<!-- 수정 -->                        
+                            <div class="from-group">
+                                <label>과목 날짜</label>
+                                <select class="form-control" id ="subjects_day" name = "subjects_day">
+                                    <option>월요일</option>
+                                    <option>화요일</option>
+                                    <option>수요일</option>
+                                    <option>목요일</option>
+                                    <option>금요일</option>
+                                </select>
+
+                            </div>
+                            <div class ="form-group">
+                             
+                                <label for="time">시작 시간 선택</label>
+                                <input type="text" id="subjects_start_time" name="subjects_start_time" class="form-control" style="width:200px;">
+                            </div>
+                            <div class ="form-group">
+                             
+                                <label for="time">종료 시간 선택</label>
+                                <input type="text" id="subjects_stop_time" name="subjects_stop_time" class="form-control" style="width:200px;">
+                            </div>
+
+                              {% block custom_js %}
+                              {% comment %} Checking if email and username already exists or not usin Ajax {% endcomment %}
+  
+   
+
+                                   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                                   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+                                   <script src="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script> 
+                                <script>
+                                $(function() {
+                                    $("#subjects_start_time").timepicker({
+                                        timeFormat: 'h:mm p',
+                                        interval: 60,
+                                        minTime: '10',
+                                        maxTime: '6:00pm',
+                                        defaultTime: '11',
+                                        startTime: '10:00',
+                                        dynamic: false,
+                                        dropdown: true,
+                                        scrollbar: true        
+                                    });
+                                });
+                                </script>
+                                <script>
+                                    $(function() {
+                                        $("#subjects_stop_time").timepicker({
+                                            timeFormat: 'h:mm p',
+                                            interval: 60,
+                                            minTime: '10',
+                                            maxTime: '6:00pm',
+                                            defaultTime: '11',
+                                            startTime: '10:00',
+                                            dynamic: false,
+                                            dropdown: true,
+                                            scrollbar: true        
+                                        });
+                                    });
+                                    </script>
+                                 {% endblock custom_js %}
+                                 
+
+                        
+                            <div class = "form-group">
+                                    <label>강의실</label>
+                                    <select class = "form-control" name = "lectureroom" id="lectureroom">
+                                        {% for lectureroom in lectureroom %}
+                                        <option value="{{ lectureroom.id }}">{{lectureroom.lectureroom_name}}</option>
+                                    {% endfor %}
+                                    </select>
+    
+                            </div>     
+                            
+
+
+                            <div class="form-group">
+                                <label>직원 </label>
+                                <select class="form-control" name="staff">
+                                    {% for staff in staffs %}
+                                        <option value="{{ staff.id }}">{{ staff.first_name }} {{ staff.last_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                       
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">과목 추가</button>
+                        </div>
+                    </form>
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+            </div>
+
+        </div><!-- /.container-fluid -->
+      </section>
+
+  {% endblock main_content %}

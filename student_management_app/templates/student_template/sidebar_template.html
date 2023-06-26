@@ -1,0 +1,82 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="overflow:hidden; background:#333;">
+      <!-- Brand Logo -->
+      <a href="{% url 'student_home' %}" class="brand-link" style="background:#fff;">
+        <img src="{% static 'dist/img/na.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            style="opacity: .8">
+        <span class="brand-text font-weight-light" style="color:black;">SFC</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+            
+            <li class="nav-item">
+              {% url 'student_home' as student_home %}
+              <a href="{{ student_home }}" class="nav-link {% if request.path == student_home %} active {% endif %}">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAVxJREFUSEvt1t1RwzAQBODdCoAKoARKgAqACiAVQAdAB6QCQgWkAyiBEpIOQgXHHCMbWZZs3RlPXqJHT6RPp5+NiD017smFGxaROwBC8s0zeRcsIisAtwFckVxYcTOcoI1nxk1wgn4H9chTeTWcQS8C+AnAjFfBOZTkl8Iicg7AjI/CQ2izwR58EK5BvXgRtqAePAt7UCveg6egFrwDZ8LhmeSTNZXCadd+j1HfTsi0cMje1wT5T1iHXpDUuP37kxCRawDvM8M3JNcdOAqDYwAfYQKdikXkAcBVYenXJJfRPsdLfQlg14ROD446SQqLyAuA+5H9XpLUyWmitTDJ3iEuXacc3HzbAtgkEzgDcBqqOpkL7h24XHVzVHyAswfpsNTpNSxdp130nPFEddxnS1KvW6eVYH0zp7ntnUCbz/EAQw8BfUtpfk9pGqO/b7OqiqdItX1HH3u1A1l/9wODmCUuf7HoQQAAAABJRU5ErkJggg=="/>
+                <p>
+                  홈페이지
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              {% url 'student_view_attendance' as student_view_attendance %}
+              <a href="{{ student_view_attendance }}" class="nav-link {% if request.path == student_view_attendance %} active {% endif %}">
+                <i class="nav-icon fas fa-calendar-alt"></i>
+                <p>
+                  출석 확인
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+<!-- 
+            <li class="nav-item">
+              {% url 'student_view_result' as student_view_result %}
+              <a href="{{ student_view_result }}" class="nav-link {% if request.path == student_view_result %} active {% endif %}">
+                <i class="nav-icon fas fa-tasks"></i>
+                <p>
+                  결과 보기
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li> -->
+
+            <!-- <li class="nav-item">
+              {% url 'student_apply_leave' as student_apply_leave %}
+              <a href="{{ student_apply_leave }}" class="nav-link {% if request.path == student_apply_leave %} active {% endif %}">
+                <i class="nav-icon fas fa-envelope-open-text"></i>
+                <p>
+                  휴가 신청
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li> -->
+
+            <li class="nav-item">
+              {% url 'student_feedback' as student_feedback %}
+              <a href="{{ student_feedback }}" class="nav-link {% if request.path == student_feedback %} active {% endif %}">
+                <i class="nav-icon fas fa-comments"></i>
+                <p>
+                  메세지 전송
+                  {% comment %} <span class="right badge badge-danger">New</span> {% endcomment %}
+                </p>
+              </a>
+            </li>
+
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
+      <!-- /.sidebar -->
+    </aside>

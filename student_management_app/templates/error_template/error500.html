@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin:auto;
+            padding: 0;
+            
+        }
+        p{
+            font-size: 20px;
+        }
+        .btn-row{
+            margin-top: 30px;
+            box-sizing: border-box;
+        }
+        .gray-border-btn{
+            width: 119px;
+            height: 40px;
+            border: 2px solid #666;
+            line-height: 38px;
+            display: inline-block;
+            font-weight: 600;
+            color: #666;
+            text-decoration : none;
+        }
+    </style>
+    <div class="404err" >
+        <div class="wrap" role="document" >
+            <section id="err-page-wrap" >
+                <img class="alignnone size-full wp-image-497" src="error404.png" alt="404에러" width="377" height="268" style="margin-top:120px; ">
+                
+            </section>
+            <h1>죄송합니다. 현재 찾을 수 없는 페이지를 요청 하셨습니다.</h1>
+                <p>
+                    존재하지 않는 주소를 입력하셨거나,
+                    <br>
+                    요청하신 페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.
+                    <br>
+                    궁금한 점이 있으시면 언제든 고객센터를 통해 문의해 주시기 바랍니다. 
+                    <br>
+                    <em>문의번호:010-0000-0000</em>
+                </p>
+        </div>
+        <div class="btn-row">
+            <a  class="gray-border-btn" href="{% url 'admin_home' %}">매인으로</a>
+            <a onclick="window.history.go(-1); return false;" href="#" class="gray-border-btn" > 이전페이지</a>
+        </div>
+    </div>
+</body>
+</html>
